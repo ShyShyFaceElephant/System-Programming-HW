@@ -6,10 +6,12 @@
 
 | 暫存器 | 全名 | 功能 |
 | - | - | - |
-| SW | Status Word | 讓 CPU 判斷上一次運算結果與當前狀態。 |
-| SP | Stack Pointer Register | 維護 Stack 資料結構，Stack 用於暫存資料。 |
-| LR | Link Register | 儲存程式呼叫的返回位址。 |
-| PC | Program Counter | 儲存下一個要執行指令的記憶體位址。 |
+| R0 | - | 唯一的唯讀暫存器，數值固定為常數0 |
+| R1 ~ R11 | - | 可供一般存取的15個通用暫存器 |
+| R12 (SW) | Status Word | 讓 CPU 判斷上一次運算結果與當前狀態。 |
+| R13 (SP) | Stack Pointer Register | 維護 Stack 資料結構，Stack 用於暫存資料。 |
+| R14 (LR) | Link Register | 儲存程式呼叫的返回位址。 |
+| R15 (PC) | Program Counter | 儲存下一個要執行指令的記憶體位址。 |
 | IR | Instruction Register | 儲存目前正在執行的指令內容，CPU 會將 IR 的內容解碼 (decode) 並執行。 |
 | MAR | Memory Address Register | 儲存要讀取或寫入記憶體的位址。 |
 | MDR | Memory Data Register | 儲存從記憶體讀取或要寫入記憶體的資料。 |
@@ -62,16 +64,7 @@
 由於 **JMP 指令** 的位址欄位大小為 **24 位元**，在 **CPU0** 當中，由於我們使用了有正負號的二補數表示法，因此合法的跳躍範圍被限制在 PC - 2^23  ～  PC + 2^23 - 1 之間。  
 **如果我們想要跳躍的位址不在這個範圍之內，可以怎麼做？**
 
-答：可以使用多段跳躍：
-
-```bash
-MAIN:
-    JMP MID_JUMP
-...
-
-MID_JUMP:
-    JMP TARGET_LABEL
-```
+答：可以結合儲存指令將目標地址直接載入程式計數器(PC)
 
 ---
 
