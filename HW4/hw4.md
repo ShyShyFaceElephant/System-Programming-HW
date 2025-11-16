@@ -7,25 +7,30 @@
 程式碼：
 
 ```asm
-LDI R1, 1 # b
-LDI R2, 2 # c
-LDI R3, 3 # d
+LD R1, B # B
+LD R2, C # C
+LD R3, D # D
+LD R4, A # A
 LDI R5, 3 # constant 3
-MUL R4, R1, R5 # a = b*3
-ADD R4, R4, R2 # a = b*3 + c
-SUB R4, R4, R3 # a = b*3 + c - d
+MUL R4, R1, R5 # A = B*3
+ADD R4, R4, R2 # A = B*3 + C
+SUB R4, R4, R3 # A = B*3 + C - D
 RET
+A:  RESW 1
+B:  WORD 1
+C:  WORD 2
+D:  WORD 3
 ```
 
-編譯結果：
+執行Assembler結果：
 
-![compile](compile1.png)
+![assemble](assemble1.png)
 
-執行結果：
+執行Virtual machine結果：
 
 ![result](result1.png)
 
-## 請寫出一個 CPU 的組合語言 swap，可以將暫存器 $R1$ 與 $R2$ 的內容交換。先載入自行設定常數值後，再開始執行交換。
+## 請寫出一個 CPU 的組合語言 swap，可以將暫存器 R1 與 R2 的內容交換。先載入自行設定常數值後，再開始執行交換。
 
 > 以 R1=1, R2=2 為例 **(使用超酷的XOR方法，可以不需要第三個暫存器)**
 
@@ -42,15 +47,15 @@ XOR R1, R1, R2 # R1= 1^2^1 = 2
 RET
 ```
 
-編譯結果：
+執行Assembler結果：
 
-![compile](compile2.png)
+![assemble](assemble2.png)
 
-執行結果：
+執行Virtual machine結果：
 
 ![result](result2.png)
 
-## 請使用 CPU 的組合語言，撰寫一個組合語言程式，計算 $1$ 到 $20$ 的偶數和。
+## 請使用 CPU 的組合語言，撰寫一個組合語言程式，計算 1 到 20 的偶數和。
 
 ```asm
 LDI R1, 1 # I
@@ -71,10 +76,10 @@ SKIP:   ADD R1, R1, R4 # I++
 EXIT:   RET
 ```
 
-編譯結果：
+執行Assembler結果：
 
-![compile](compile3.png)
+![assemble](assemble3.png)
 
-執行結果：
+執行Virtual machine結果：
 
 ![result](result3.png)
